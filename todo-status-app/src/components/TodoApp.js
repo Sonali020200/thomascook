@@ -6,7 +6,6 @@ import Group from './Group';
 import { addGroup, fetchAllStatuses } from '../features/groups/groupSlice';
 import Popup from './Popup';
 
-
 const TodoApp = () => {
   const dispatch = useDispatch();
   const groups = useSelector(state => state.groups);
@@ -14,17 +13,17 @@ const TodoApp = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [showPopup, setShowPopup] = useState(false);
 
-  const handleAddGroup = async() => {
+  const handleAddGroup = async () => {
     const lastGroup = groups[groups.length - 1];
     const newGroup = { id: groupIdCounter, from: lastGroup.to + 1, to: 10, statuses: [] };
-   
+
     await dispatch(addGroup(newGroup));
     setShowPopup(true);
     setGroupIdCounter(groupIdCounter + 1);
 
     setTimeout(() => {
-        setShowPopup(false);
-      }, 2000);
+      setShowPopup(false);
+    }, 2000);
   };
 
   const handleClosePopup = () => {
@@ -58,7 +57,6 @@ const TodoApp = () => {
 
   return (
     <div className="p-4">
-      
       {groups.map(group => (
         <Group key={group.id} group={group} />
       ))}

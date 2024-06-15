@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { deleteGroup, updateGroup } from '../features/groups/groupSlice';
+import CompleteStatus from '../features/groups/CompleteStatus';
 
 const Group = ({ group }) => {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ const Group = ({ group }) => {
           </div>
         ))}
       </div>
+      <CompleteStatus isComplete={group.isComplete} />
     </div>
   );
 };
