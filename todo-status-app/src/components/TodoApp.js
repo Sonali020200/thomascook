@@ -9,15 +9,38 @@ const TodoApp = () => {
   const dispatch = useDispatch();
   const groups = useSelector(state => state.groups);
   const [groupIdCounter, setGroupIdCounter] = useState(groups.length + 1);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleAddGroup = () => {
-    const newGroup = { id: groupIdCounter, from: 1, to: 10, statuses: [] };
+    const lastGroup = groups[groups.length - 1];
+    const newGroup = { id: groupIdCounter, from: lastGroup.to + 1, to: 10, statuses: [] };
     dispatch(addGroup(newGroup));
     setGroupIdCounter(groupIdCounter + 1);
   };
 
+  const validateGroups = () => {
+    if (groups[0].from !== 1) {
+      return 'Group 1 has to start from 1.';
+    }
+    for (let i = 0; i < groups.length - 1; i++) {
+      if (groups[i].to + 1 !== groups[i + 1].from) {
+        return 'No gaps or overlaps allowed between groups.';
+      }
+    }
+    if (groups[groups.length - 1].to !== 10) {
+      return 'Last group should always end at 10.';
+    }
+    return '';
+  };
+
   const handleShowStatus = () => {
-    dispatch(fetchAllStatuses());
+    const validationError = validateGroups();
+    if (validationError) {
+      setErrorMessage(validationError);
+    } else {
+      setErrorMessage('');
+      dispatch(fetchAllStatuses());
+    }
   };
 
   return (
@@ -34,6 +57,7 @@ const TodoApp = () => {
           Show Status
         </button>
       </div>
+      {errorMessage && <div className="text-red-500 mt-4">{errorMessage}</div>}
     </div>
   );
 };
