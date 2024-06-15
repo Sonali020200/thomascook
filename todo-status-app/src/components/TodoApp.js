@@ -70,13 +70,13 @@ const TodoApp = () => {
       {groups.map(group => (
         <Group key={group.id} group={group} />
       ))}
-      <div className="flex items-center mt-4">
-        <button onClick={handleAddGroup} className="bg-blue-500 text-white px-4 py-2 rounded flex items-center mr-4">
+      <div className="flex flex-wrap items-center mt-4">
+        <button onClick={handleAddGroup} className="bg-blue-500 text-white px-4 py-2 rounded flex items-center mr-4 mb-4 sm:mb-0">
           <FontAwesomeIcon icon={faPlus} className="mr-2" />
           Add Group
         </button>
         <Popup show={showPopup} onClose={handleClosePopup} />
-        <button onClick={handleShowStatus} className="bg-green-500 text-white px-4 py-2 rounded">
+        <button onClick={handleShowStatus} className="bg-green-500 text-white px-4 py-2 rounded mb-4 sm:mb-0">
           Show Status
         </button>
       </div>

@@ -28,27 +28,27 @@ const Group = ({ group }) => {
   };
 
   return (
-    <div className="flex items-center mb-4">
-      <button onClick={handleDelete} className="text-red-500 mr-2">
+    <div className="flex flex-wrap items-center mb-4">
+      <button onClick={handleDelete} className="text-red-500 mr-2 mb-2 sm:mb-0">
         <FontAwesomeIcon icon={faTrash} />
       </button>
-      <span className="mr-2">Group {group.id}</span>
+      <span className="mr-2 mb-2 sm:mb-0">Group {group.id}</span>
       <input
         type="number"
         value={group.from}
         onChange={handleFromChange}
-        className="border rounded px-2 py-1 mr-2"
+        className="border rounded px-2 py-1 mr-2 mb-2 sm:mb-0"
       />
-      <span className="mr-2">-</span>
+      <span className="mr-2 mb-2 sm:mb-0">-</span>
       <input
         type="number"
         value={group.to}
         onChange={handleToChange}
-        className="border rounded px-2 py-1 mr-2"
+        className="border rounded px-2 py-1 mr-2 mb-2 sm:mb-0"
       />
-      <div className="ml-4 flex">
+      <div className="ml-0 sm:ml-4 flex flex-wrap">
         {group.statuses.map(status => (
-          <div key={status.id} className={`px-2 py-1 rounded ${status.completed ? 'bg-green-300' : 'bg-red-300'} mx-1`}>
+          <div key={status.id} className={`px-2 py-1 rounded ${status.completed ? 'bg-green-300' : 'bg-red-300'} mx-1 mb-2 sm:mb-0`}>
             ({status.id}) {status.completed ? 'True' : 'False'}
           </div>
         ))}

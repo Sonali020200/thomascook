@@ -18,8 +18,8 @@ const GroupList = () => {
       {groups.map(group => (
         <Group key={group.id} group={group} />
       ))}
-      <button onClick={handleAddGroup} className="bg-blue-500 text-white px-4 py-2 rounded mt-4"> 
-         <FontAwesomeIcon icon={faPlus} className="mr-2" />
+      <button onClick={handleAddGroup} className="bg-blue-500 text-white px-4 py-2 rounded mt-4 flex items-center"> 
+        <FontAwesomeIcon icon={faPlus} className="mr-2" />
         Add Group
       </button>
     </div>
