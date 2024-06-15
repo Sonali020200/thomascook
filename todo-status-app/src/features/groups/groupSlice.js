@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = [
-  { id: 1, from: 1, to: 10, statuses: [], isComplete: false }
+  { id: 1, from: 1, to: 10, statuses: [] }
 ];
 
 export const fetchStatuses = createAsyncThunk(
@@ -29,16 +29,12 @@ export const fetchAllStatuses = createAsyncThunk(
   }
 );
 
-const isGroupComplete = (statuses) => {
-  return statuses.every(status => status.completed);
-};
-
 const groupsSlice = createSlice({
   name: 'groups',
   initialState,
   reducers: {
     addGroup: (state, action) => {
-      state.push({ ...action.payload, isComplete: false });
+      state.push(action.payload);
     },
     deleteGroup: (state, action) => {
       return state.filter(group => group.id !== action.payload);
@@ -58,7 +54,6 @@ const groupsSlice = createSlice({
       const group = state.find(group => group.id === groupId);
       if (group) {
         group.statuses = statuses;
-        group.isComplete = isGroupComplete(statuses);
       }
     });
   }

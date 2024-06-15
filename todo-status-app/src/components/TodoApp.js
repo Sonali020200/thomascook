@@ -13,7 +13,17 @@ const TodoApp = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [showPopup, setShowPopup] = useState(false);
 
+  const allTodosAllocated = () => {
+    const totalTodos = groups.reduce((sum, group) => sum + (group.to - group.from + 1), 0);
+    return totalTodos >= 10;
+  };
+
   const handleAddGroup = async () => {
+    if (allTodosAllocated()) {
+      alert('All to-do items are already allocated in groups. Cannot add a new group!');
+      return;
+    }
+
     const lastGroup = groups[groups.length - 1];
     const newGroup = { id: groupIdCounter, from: lastGroup.to + 1, to: 10, statuses: [] };
 
