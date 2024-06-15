@@ -25,11 +25,11 @@ Explore the live demo [here](https://thomascook-eta.vercel.app/).
 - **Fetching Data:** axios
 
 ## Features
-- Dynamic Group Management: Add, edit, and delete todo groups dynamically.
-- Validation: Ensures groups are sequentially numbered without overlaps or gaps.
-- Status Visualization: Clear visual indication of completion status within each group.
-- Popup Notifications: Informative popups for successful group addition.
-- The application is designed to be responsive across all screen sizes, including mobile, tablet, and desktop devices.
+- **Dynamic Group Management:** Add, edit, and delete todo groups dynamically.
+- **Validation:** Ensures groups are sequentially numbered without overlaps or gaps.
+- **Status Visualization:** Clear visual indication of completion status within each group.
+- **Popup Notifications:** Informative popups for successful group addition.
+- **Responsiveness:** The application is designed to be responsive across all screen sizes, including mobile, tablet, and desktop devices.
 
 ## Installation
 
