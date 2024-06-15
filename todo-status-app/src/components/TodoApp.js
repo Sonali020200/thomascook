@@ -20,7 +20,7 @@ const TodoApp = () => {
 
   const handleAddGroup = async () => {
     if (allTodosAllocated()) {
-      alert('All to-do items are already allocated in groups. Cannot add a new group!');
+      alert('All Todo items are already allocated in groups. Cannot add a new group!');
       return;
     }
 
