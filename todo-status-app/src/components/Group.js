@@ -5,7 +5,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { deleteGroup, updateGroup } from '../features/groups/groupSlice';
 import CompleteStatus from '../features/groups/CompleteStatus';
 
-const Group = ({ group }) => {
+const Group = ({ group, statusVisible }) => {
   const dispatch = useDispatch();
   const groups = useSelector(state => state.groups);
 
@@ -46,13 +46,15 @@ const Group = ({ group }) => {
         onChange={handleToChange}
         className="border rounded px-2 py-1 mr-2 mb-2 sm:mb-0"
       />
-      <div className="ml-0 sm:ml-4 flex flex-wrap">
-        {group.statuses.map(status => (
-          <div key={status.id} className={`px-2 py-1 rounded ${status.completed ? 'bg-green-300' : 'bg-red-300'} mx-1 mb-2 sm:mb-0`}>
-            ({status.id}) {status.completed ? 'True' : 'False'}
-          </div>
-        ))}
-      </div>
+      {statusVisible && (
+        <div className="ml-0 sm:ml-4 flex flex-wrap">
+          {group.statuses.map(status => (
+            <div key={status.id} className={`px-2 py-1 rounded ${status.completed ? 'bg-green-300' : 'bg-red-300'} mx-1 mb-2 sm:mb-0`}>
+              ({status.id}) {status.completed ? 'True' : 'False'}
+            </div>
+          ))}
+        </div>
+      )}
       <CompleteStatus isComplete={group.isComplete} />
     </div>
   );

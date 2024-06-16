@@ -12,6 +12,9 @@ const TodoApp = () => {
   const [groupIdCounter, setGroupIdCounter] = useState(groups.length + 1);
   const [errorMessage, setErrorMessage] = useState('');
   const [showPopup, setShowPopup] = useState(false);
+  const [statusVisible, setStatusVisible] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isAnimatingAddGroup, setIsAnimatingAddGroup] = useState(false);
 
   const allTodosAllocated = () => {
     const totalTodos = groups.reduce((sum, group) => sum + (group.to - group.from + 1), 0);
@@ -34,6 +37,9 @@ const TodoApp = () => {
     setTimeout(() => {
       setShowPopup(false);
     }, 2000);
+
+    setIsAnimatingAddGroup(true);
+    setTimeout(() => setIsAnimatingAddGroup(false), 200); 
   };
 
   const handleClosePopup = () => {
@@ -55,29 +61,45 @@ const TodoApp = () => {
     return '';
   };
 
-  const handleShowStatus = () => {
-    const validationError = validateGroups();
-    if (validationError) {
-      setErrorMessage(validationError);
-    } else {
-      setErrorMessage('');
-      dispatch(fetchAllStatuses());
+  const handleToggleStatus = async () => {
+    if (!statusVisible) {
+      const validationError = validateGroups();
+      if (validationError) {
+        setErrorMessage(validationError);
+        return;
+      } else {
+        setErrorMessage('');
+        await dispatch(fetchAllStatuses());
+      }
     }
+    setStatusVisible(!statusVisible);
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 200); 
   };
 
   return (
     <div className="p-4">
       {groups.map(group => (
-        <Group key={group.id} group={group} />
+        <Group key={group.id} group={group} statusVisible={statusVisible} />
       ))}
       <div className="flex flex-wrap items-center mt-4">
-        <button onClick={handleAddGroup} className="bg-blue-500 text-white px-4 py-2 rounded flex items-center mr-4 mb-4 sm:mb-0">
+        <button
+          onClick={handleAddGroup}
+          className={`bg-blue-500 text-white px-4 py-2 rounded flex items-center mr-4 mb-4 sm:mb-0 transform transition-transform duration-200 ${
+            isAnimatingAddGroup ? 'scale-95' : ''
+          }`}
+        >
           <FontAwesomeIcon icon={faPlus} className="mr-2" />
           Add Group
         </button>
         <Popup show={showPopup} onClose={handleClosePopup} />
-        <button onClick={handleShowStatus} className="bg-green-500 text-white px-4 py-2 rounded mb-4 sm:mb-0">
-          Show Status
+        <button
+          onClick={handleToggleStatus}
+          className={`bg-green-500 text-white px-4 py-2 rounded mb-4 sm:mb-0 transform transition-transform duration-200 ${
+            isAnimating ? 'scale-95' : ''
+          }`}
+        >
+          {statusVisible ? 'Hide Status' : 'Show Status'}
         </button>
       </div>
       {errorMessage && <div className="text-red-500 mt-4">{errorMessage}</div>}
