@@ -56,7 +56,7 @@ const TodoApp = () => {
       }
     }
     if (groups[groups.length - 1].to !== 10) {
-      return 'Last group should always end at 10.';
+      return 'All tasks should be covered.';
     }
     return '';
   };
